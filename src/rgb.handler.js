@@ -44,13 +44,17 @@ const delay = (ms) => {
     })
 }
 
+const stopModes = () => {
+    isFadeMode = false;
+}
+
 
 let lastMode;
-let breakFade = false;
+let isFadeMode = false;
+let fadeDelay = 33;
 const MODES = {
-    fade: async (settings) => {
-        modeBreak = false;
-        breakFade = false;
+    fade: async () => {
+
         let rVal = 254;
         let gVal = 1;
         let bVal = 127;
@@ -58,10 +62,8 @@ const MODES = {
         let rDir = -1;
         let gDir = 1;
         let bDir = -1;
-        while (!breakFade) {
-            if (modeBreak) {
-                break;
-            }
+        while (!true) {
+            if (!isFadeMode) return;
             writeValues(rVal, gVal, bVal);
 
             // change the values of the LEDs
@@ -92,12 +94,23 @@ const MODES = {
 
 
 const changeMode = async (modeName, settings) => {
-    modeBreak = true;
-    breakFade = true;
+    stopModes();
     lastMode = modeName;
     const mode = MODES[modeName];
-    mode(settings);
+    switch (modeName) {
+        case 'fade':
+            fadeDelay = settings?.delay || 33;
+            isFadeMode = true;
+    }
 
 }
+
+const initializeModes = () => {
+    isFadeMode = true;
+    MODES['fade']();
+}
+
+
+initializeModes();
 
 module.exports = { handleNewValues, changeMode };
