@@ -66,7 +66,7 @@ const MODES = {
         let gDir = 1;
         let bDir = -1;
         while (true) {
-            if (!isFadeMode) return;
+            if (!isFadeMode) return await delay(fadeDelay);;
             writeValues(rVal, gVal, bVal);
 
             // change the values of the LEDs
