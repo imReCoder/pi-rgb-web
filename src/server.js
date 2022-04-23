@@ -22,12 +22,19 @@ app.use("/",(req,res)=>{
   res.send(`Not found on RGB server ${req.url}`);
 })
 
+const env = process.env.NODE_ENV;
 io.on('connection', (socket) => {
   console.log('A client Connected');
   socket.on("rgbChange",(newValues)=>{
     console.log(`Received new RGB values : `,JSON.stringify(newValues));
-    if(process.env.NODE_ENV !== 'dev'){
+    if (env !== 'dev') {
       require("./rgb.handler.js").handleNewValues(newValues);
+    }
+  })
+  socket.on(('modeChange'), ({ modeName, settings }) => {
+    console.log(`Received mode change : ${modeName}`, settings);
+    if (env !== 'dev') {
+      require("./rgb.handler.js").changeMode(modeName, settings);
     }
   })
 });
