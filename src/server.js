@@ -25,7 +25,7 @@ app.use("/",(req,res)=>{
 const env = process.env.NODE_ENV;
 io.on('connection', (socket) => {
   let rgbHandler;
-  if (env != dev) {
+  if (env !== 'dev') {
     rgbHandler = require('./rgb.handler.js');
   }
   console.log('A client Connected');
