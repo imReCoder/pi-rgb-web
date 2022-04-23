@@ -37,7 +37,7 @@ const handleNewValues = async (data) => {
 }
 
 const delay = (ms) => {
-    return Promise(resolve => {
+    return new Promise(resolve => {
         setTimeout(() => {
             resolve();
         }, ms);
