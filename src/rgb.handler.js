@@ -45,10 +45,12 @@ const delay = (ms) => {
 }
 
 
+let lastMode;
+let breakFade = false;
 const MODES = {
-
     fade: async (settings) => {
         modeBreak = false;
+        breakFade = false;
         let rVal = 254;
         let gVal = 1;
         let bVal = 127;
@@ -56,7 +58,7 @@ const MODES = {
         let rDir = -1;
         let gDir = 1;
         let bDir = -1;
-        while (true) {
+        while (!breakFade) {
             if (modeBreak) {
                 break;
             }
@@ -91,6 +93,8 @@ const MODES = {
 
 const changeMode = async (modeName, settings) => {
     modeBreak = true;
+    breakFade = true;
+    lastMode = modeName;
     const mode = MODES[modeName];
     mode(settings);
 
