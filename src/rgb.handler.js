@@ -48,6 +48,7 @@ const delay = (ms) => {
 const MODES = {
 
     fade: async (settings) => {
+        modeBreak = false;
         let rVal = 254;
         let gVal = 1;
         let bVal = 127;
@@ -91,8 +92,8 @@ const MODES = {
 const changeMode = async (modeName, settings) => {
     modeBreak = true;
     const mode = MODES[modeName];
-    modeBreak = false;
     mode(settings);
+
 }
 
 module.exports = { handleNewValues, changeMode };
