@@ -1,7 +1,8 @@
 
 
-const Gpio = require('pigpio').Gpio, 
-    ledRed = new Gpio(21, { mode: Gpio.OUTPUT }),
+const Gpio = require('pigpio').Gpio;
+
+let ledRed = new Gpio(21, { mode: Gpio.OUTPUT }),
     ledGreen = new Gpio(20, { mode: Gpio.OUTPUT }),
     ledBlue = new Gpio(16, { mode: Gpio.OUTPUT }),
 redRGB = 255,
