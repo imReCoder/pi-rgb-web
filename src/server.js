@@ -24,17 +24,21 @@ app.use("/",(req,res)=>{
 
 const env = process.env.NODE_ENV;
 io.on('connection', (socket) => {
+  let rgbHandler;
+  if (env != dev) {
+    rgbHandler = require('./rgb.handler.js');
+  }
   console.log('A client Connected');
   socket.on("rgbChange",(newValues)=>{
     console.log(`Received new RGB values : `,JSON.stringify(newValues));
     if (env !== 'dev') {
-      require("./rgb.handler.js").handleNewValues(newValues);
+      rgbHandler.handleNewValues(newValues);
     }
   })
   socket.on(('modeChange'), ({ modeName, settings }) => {
     console.log(`Received mode change : ${modeName}`, settings);
     if (env !== 'dev') {
-      require("./rgb.handler.js").changeMode(modeName, settings);
+      rgbHandler.changeMode(modeName, settings);
     }
   })
 });
