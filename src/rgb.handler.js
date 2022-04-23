@@ -84,7 +84,7 @@ const MODES = {
             }
 
             // slight delay so it doesn't rotate color too quicky
-            await delay(settings?.delayValue || 200);
+            await delay(settings?.delay || 33);
         }
     }
 }
