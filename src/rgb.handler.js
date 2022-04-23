@@ -25,8 +25,15 @@ const writeValues = (r, g, b) => {
     ledBlue.pwmWrite(b); //set BLUE LED to specified value
 }
 
+
+
+let lastMode;
+let isFadeMode = false;
+let fadeDelay = 33;
+
 let modeBreak = false;
 const handleNewValues = async (data) => {
+    isFadeMode = false;
     //for common anode RGB LED  255 is fully off, and 0 is fully on, so we have to change the value from the client
     redRGB = parseInt(data.red);
     greenRGB = parseInt(data.green);
@@ -48,10 +55,6 @@ const stopModes = () => {
     isFadeMode = false;
 }
 
-
-let lastMode;
-let isFadeMode = false;
-let fadeDelay = 33;
 const MODES = {
     fade: async () => {
 
@@ -62,7 +65,7 @@ const MODES = {
         let rDir = -1;
         let gDir = 1;
         let bDir = -1;
-        while (!true) {
+        while (true) {
             if (!isFadeMode) return;
             writeValues(rVal, gVal, bVal);
 
@@ -86,7 +89,7 @@ const MODES = {
             }
 
             // slight delay so it doesn't rotate color too quicky
-            await delay(settings?.delay || 33);
+            await delay(fadeDelay);
         }
     }
 }
@@ -106,8 +109,10 @@ const changeMode = async (modeName, settings) => {
 }
 
 const initializeModes = () => {
-    isFadeMode = true;
-    MODES['fade']();
+    for (let mode in MODES) {
+        mode();
+    }
+
 }
 
 
