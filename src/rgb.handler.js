@@ -109,7 +109,7 @@ const changeMode = async (modeName, settings) => {
 }
 
 const initializeModes = () => {
-    const modes = OBJECT.keys(MODES);
+    const modes = Object.keys(MODES);
     for (let i = 0; i < modes.length; i++) {
         const mode = MODES[modes[i]];
         mode();
