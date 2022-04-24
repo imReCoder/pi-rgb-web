@@ -12,8 +12,7 @@ const io = new Server(server,
     methods: ["GET", "POST"],
     transports: ['websocket', 'polling'],
     credentials: true
-},
-    path: '/rgb/socket.io',
+  },
 
 allowEIO3: true});
 
