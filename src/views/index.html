@@ -160,7 +160,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
     <script src="https://www.w3schools.com/lib/w3color.js"></script>
     <script>
-      var socket = io("/rgb"); //load socket.io-client and connect to the host that serves the page
+      var socket = io({ path: '/rgb/socket.io'}); //load socket.io-client and connect to the host that serves the page
       var rgb = w3color("rgb(0,0,0)"); //we use the w3color.js library to keep the color as an object
       window.addEventListener("load", function () {
         //when page loads
