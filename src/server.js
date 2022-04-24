@@ -8,7 +8,7 @@ const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server,
   {cors: {
-    origin: "*",
+    origin: "https://unworshipped-beetle-4209.dataplicity.io",
     methods: ["GET", "POST"],
     transports: ['websocket', 'polling'],
     credentials: true
